@@ -15,20 +15,23 @@ const Demo = () => {
   useEffect(() => {
     // gets the articles that is stored in local storage with key articles
     // hence we get strings data from local storage we transform it to json
-    const articlesFromLocalStorage = JSON.parse(
-      localStorage.getItem("articles")
-    );
+      const articlesFromLocalStorage = JSON.parse(
+        localStorage.getItem("articles")
+      );
 
-    if (articlesFromLocalStorage) {
-      setAllArticles(articlesFromLocalStorage);
-    }
+      if (articlesFromLocalStorage) {
+        setAllArticles(articlesFromLocalStorage);
+      }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // getting the data from our redux store
     const { data } = await getSummary({ articleUrl: article.url });
     if (data?.summary) {
+      // add the data to new object and pass the summary and previous article to it
       const newArticle = { ...article, summary: data.summary };
+      // below updatedAllArticles contains all the previous and current data of article
       const updatedAllArticle = [newArticle, ...allArticles];
       setArticle(newArticle);
       setAllArticles(updatedAllArticle);
@@ -38,6 +41,7 @@ const Demo = () => {
   };
 
   const handleChange = (e) => {
+    // setting the article on changing
     setArticle({ ...article, url: e.target.value });
   };
 

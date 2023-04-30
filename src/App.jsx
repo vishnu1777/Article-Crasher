@@ -1,17 +1,27 @@
-import Hero from "./components/Hero";
-import Demo from "./components/Demo";
+import Home from "./components/Home";
+
 import "./index.css";
+import Login from "./components/Login";
+import { Routes, Route } from "react-router-dom";
+
 function App() {
+  const loggedin = localStorage.getItem("logged");
+  console.log(loggedin);
+
   return (
-    <main>
-      <div className="main">
-        <div className="gradient" />
-      </div>
-      <div className="app">
-        <Hero />
-        <Demo />
-      </div>
-    </main>
+    <Routes>
+      {/* {!loggedin ? (
+        <Route
+          path="/"
+          element={<Login setAuthenticated={setAuthenticated} />}
+        />
+      ) : (
+        <Navigate to="/home" replace />
+      )}
+
+      {(authenticated || loggedin) && <Route path="/home" element={<Home />} />} */}
+      <Route path="/" element={!loggedin ? <Login /> : <Home />} />
+    </Routes>
   );
 }
 
